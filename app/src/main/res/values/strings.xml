@@ -8,5 +8,7 @@
     <string name="verb_3">Verb 3</string>
     <string name="verb_ing">Verb Ing</string>
     <string name="next">Next</string>
-    <string name="correct">Correct</string>
+    <string name="correct_info">Question Number: %1$d, Correct: %2$d, from:%3$d</string>
+    <string name="correct_answer">Your Answer is Correct</string>
+    <string name="wrong_answer">The Correct Answer is: %1$s</string>
 </resources>

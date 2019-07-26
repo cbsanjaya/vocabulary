@@ -18,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Pertanyaan" />
+        tools:text="Question" />
 
     <EditText
         android:id="@+id/edAnswer1"
@@ -34,7 +34,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txQuestion"/>
+        app:layout_constraintTop_toBottomOf="@+id/txQuestion"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/edAnswer2"
@@ -125,7 +126,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="#3F51B5"
+        android:background="@color/colorPrimary"
         android:onClick="check"
         android:text="@string/check"
         android:textColor="#FFFFFF"
@@ -136,24 +137,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txInfo" />
 
     <Button
-        android:id="@+id/btnNext"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="#06680F"
-        android:onClick="next"
-        android:text="@string/next"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCheck" />
-
-    <Button
         android:id="@+id/btnReset"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -162,13 +145,13 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="#F44336"
+        android:background="@color/colorAccent"
         android:onClick="reset"
         android:text="@string/reset"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnNext" />
+        app:layout_constraintTop_toBottomOf="@+id/btnCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

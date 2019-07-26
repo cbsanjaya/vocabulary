@@ -1,13 +1,12 @@
 package com.cbsanjaya.vocab;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private int qScore = 0;
     private TextView mQuestion, mScore, mInfo;
     private EditText mAnswer1, mAnswer2, mAnswer3, mAnswer4;
-    private Button mCheck, mReset, mNext;
+    private Button mCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +31,15 @@ public class MainActivity extends AppCompatActivity {
         mAnswer3 = findViewById(R.id.edAnswer3);
         mAnswer4 = findViewById(R.id.edAnswer4);
         mCheck = findViewById(R.id.btnCheck);
-        mNext = findViewById(R.id.btnNext);
-        mReset = findViewById(R.id.btnReset);
 
         updateQuestion();
     }
 
     private void updateQuestion() {
         if (qNumber < questions.gallery.size()) {
-            mCheck.setVisibility(View.VISIBLE);
-            mNext.setVisibility(View.INVISIBLE);
-
             currentVocab = questions.gallery.get(qNumber);
             mQuestion.setText(currentVocab.getBahasa());
-            mInfo.setVisibility(View.INVISIBLE);
+            mInfo.setVisibility(View.GONE);
 
             mAnswer1.requestFocus();
             mAnswer1.setText("");
@@ -60,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
                 mAnswer4.setVisibility(View.VISIBLE);
             } else {
                 mAnswer1.setHint(R.string.noun);
-                mAnswer2.setVisibility(View.INVISIBLE);
-                mAnswer3.setVisibility(View.INVISIBLE);
-                mAnswer4.setVisibility(View.INVISIBLE);
+                mAnswer2.setVisibility(View.GONE);
+                mAnswer3.setVisibility(View.GONE);
+                mAnswer4.setVisibility(View.GONE);
             }
-            mScore.setText("Pertanyaan ke: " + (qNumber + 1) + ", Benar: " + qScore + " dari: " + questions.gallery.size());
+
+            mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.gallery.size()));
         } else {
-            mCheck.setVisibility(View.INVISIBLE);
+            mCheck.setVisibility(View.GONE);
         }
     }
 
@@ -77,30 +72,10 @@ public class MainActivity extends AppCompatActivity {
         updateQuestion();
     }
 
-    public void check(View view) {
-        if (TextUtils.isEmpty(mAnswer1.getText())) {
-            mAnswer1.setError("Field is Required");
-            return;
-        }
-
+    public void checkAnswer() {
         String lAnswer1 = mAnswer1.getText().toString().toLowerCase();
 
         if (currentVocab.isVerb()) {
-            if (TextUtils.isEmpty(mAnswer2.getText())) {
-                mAnswer2.setError("Field is Required");
-                return;
-            }
-
-            if (TextUtils.isEmpty(mAnswer3.getText())) {
-                mAnswer3.setError("Field is Required");
-                return;
-            }
-
-            if (TextUtils.isEmpty(mAnswer4.getText())) {
-                mAnswer4.setError("Field is Required");
-                return;
-            }
-
             String lAnswer2 = mAnswer2.getText().toString().toLowerCase();
             String lAnswer3 = mAnswer3.getText().toString().toLowerCase();
             String lAnswer4 = mAnswer4.getText().toString().toLowerCase();
@@ -109,31 +84,37 @@ public class MainActivity extends AppCompatActivity {
                     & lAnswer2.equals(currentVocab.getEnglish2())
                     & lAnswer3.equals(currentVocab.getEnglish3())
                     & lAnswer4.equals(currentVocab.getEnglishIng())) {
-                mInfo.setText(R.string.correct);
+                mInfo.setText(R.string.correct_answer);
                 qScore++;
             } else {
-                mInfo.setText("the Correct Answers Are: " +
-                        currentVocab.getEnglish1() + ", " +
-                        currentVocab.getEnglish2() + ", " +
-                        currentVocab.getEnglish3() + ", " +
-                        currentVocab.getEnglishIng());
+                mInfo.setText(getResources()
+                        .getString(R.string.wrong_answer,
+                                currentVocab.getEnglish1() + ", " +
+                                currentVocab.getEnglish2() + ", " +
+                                currentVocab.getEnglish3() + ", " +
+                                currentVocab.getEnglishIng()));
             }
             mInfo.setVisibility(View.VISIBLE);
         } else {
             if (lAnswer1.equals(currentVocab.getEnglish1())) {
-                mInfo.setText(R.string.correct);
+                mInfo.setText(R.string.correct_answer);
                 qScore++;
             } else {
-                mInfo.setText("the Correct Answer is: " + currentVocab.getEnglish1());
+                mInfo.setText(getResources().getString(R.string.wrong_answer, currentVocab.getEnglish1()));
             }
             mInfo.setVisibility(View.VISIBLE);
         }
-        mCheck.setVisibility(View.INVISIBLE);
-        mNext.setVisibility(View.VISIBLE);
     }
 
-    public void next(View view) {
-        qNumber++;
-        updateQuestion();
+    public void check(View view) {
+        Button button = (Button) view;
+        if (button.getText().toString().equals(getString(R.string.check))) {
+            button.setText(R.string.next);
+            checkAnswer();
+        } else {
+            qNumber++;
+            button.setText(R.string.check);
+            updateQuestion();
+        }
     }
 }
