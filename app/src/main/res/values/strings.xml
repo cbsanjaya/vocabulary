@@ -11,4 +11,7 @@
     <string name="correct_info">Question Number: %1$d, Correct: %2$d, from:%3$d</string>
     <string name="correct_answer">Your Answer is Correct</string>
     <string name="wrong_answer">The Correct Answer is: %1$s</string>
+    <string name="basic_level">Basic Level</string>
+    <string name="pre_basic_level">Pre Basic Level</string>
+    <string name="developed_by">Made with Love by Cahya Bagus Sanjaya</string>
 </resources>

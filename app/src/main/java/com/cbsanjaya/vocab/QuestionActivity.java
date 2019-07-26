@@ -2,6 +2,7 @@ package com.cbsanjaya.vocab;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,10 +11,12 @@ import android.widget.TextView;
 
 public class QuestionActivity extends AppCompatActivity {
 
-    private BasicQuestions questions;
+    private BaseQuestions questions;
     private Vocab currentVocab;
     private int qNumber = 0;
     private int qScore = 0;
+    private String qLevel;
+    private int qChapter;
     private TextView mQuestion, mScore, mInfo;
     private EditText mAnswer1, mAnswer2, mAnswer3, mAnswer4;
     private Button mCheck;
@@ -22,7 +25,11 @@ public class QuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question);
-        questions = new BasicQuestions();
+
+        Intent intent = getIntent();
+        qLevel = intent.getStringExtra("LEVEL");
+        qChapter = intent.getIntExtra("CHAPTER", 0);
+        generateQuestion();
         mQuestion = findViewById(R.id.txQuestion);
         mScore = findViewById(R.id.txScore);
         mInfo = findViewById(R.id.txInfo);
@@ -33,6 +40,23 @@ public class QuestionActivity extends AppCompatActivity {
         mCheck = findViewById(R.id.btnCheck);
 
         updateQuestion();
+    }
+
+    private void generateQuestion() {
+        switch (qLevel) {
+            case "PreBasic":
+                questions = new BasicQuestions(qChapter);
+                break;
+            case "Basic":
+                questions = new BasicQuestions(qChapter);
+                break;
+            case "PreIntermediate":
+                questions = new BasicQuestions(qChapter);
+                break;
+            case "Intermediate":
+                questions = new BasicQuestions(qChapter);
+                break;
+        }
     }
 
     private void updateQuestion() {
@@ -58,7 +82,6 @@ public class QuestionActivity extends AppCompatActivity {
                 mAnswer3.setVisibility(View.GONE);
                 mAnswer4.setVisibility(View.GONE);
             }
-
             mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.gallery.size()));
         } else {
             mCheck.setVisibility(View.GONE);
@@ -66,7 +89,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        questions = new BasicQuestions();
+        generateQuestion();
         qNumber = 0;
         qScore = 0;
         updateQuestion();
@@ -104,6 +127,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
             mInfo.setVisibility(View.VISIBLE);
         }
+        mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.gallery.size()));
     }
 
     public void check(View view) {
