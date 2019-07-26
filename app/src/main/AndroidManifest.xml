@@ -19,14 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BasicActivity"
-            android:label="Basic Level"
+        <activity
+            android:name=".BasicActivity"
+            android:label="@string/basic_level"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".QuestionActivity" />
+        <activity
+            android:name=".QuestionActivity"
+            android:label="@string/quiz"
+            />
     </application>
 
 </manifest>

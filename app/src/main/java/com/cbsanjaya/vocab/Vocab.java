@@ -1,6 +1,9 @@
 package com.cbsanjaya.vocab;
 
-public class Vocab {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Vocab implements Parcelable {
     private boolean verb;
     private String bahasa;
     private String english;
@@ -60,5 +63,35 @@ public class Vocab {
         }
 
         return result;
+    }
+
+    protected Vocab(Parcel in) {
+        verb = in.readByte() != 0;
+        bahasa = in.readString();
+        english = in.readString();
+    }
+
+    public static final Creator<Vocab> CREATOR = new Creator<Vocab>() {
+        @Override
+        public Vocab createFromParcel(Parcel in) {
+            return new Vocab(in);
+        }
+
+        @Override
+        public Vocab[] newArray(int size) {
+            return new Vocab[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeByte((byte) (verb ? 1 : 0));
+        parcel.writeString(bahasa);
+        parcel.writeString(english);
     }
 }

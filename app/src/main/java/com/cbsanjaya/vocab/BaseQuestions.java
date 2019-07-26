@@ -25,4 +25,8 @@ abstract class BaseQuestions {
     static final int CHAPTER_15 = 17;
     static final int CHAPTER_16 = 18;
     static final int CHAPTER_ALL = 19;
+
+    public void setGallery(ArrayList<Vocab> gallery) {
+        this.gallery = gallery;
+    }
 }

@@ -1,7 +1,5 @@
 package com.cbsanjaya.vocab;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +7,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+
 public class QuestionActivity extends AppCompatActivity {
 
-    private BaseQuestions questions;
+    private ArrayList<Vocab> questions;
     private Vocab currentVocab;
     private int qNumber = 0;
     private int qScore = 0;
@@ -29,7 +32,6 @@ public class QuestionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         qLevel = intent.getStringExtra("LEVEL");
         qChapter = intent.getIntExtra("CHAPTER", 0);
-        generateQuestion();
         mQuestion = findViewById(R.id.txQuestion);
         mScore = findViewById(R.id.txScore);
         mInfo = findViewById(R.id.txInfo);
@@ -39,29 +41,44 @@ public class QuestionActivity extends AppCompatActivity {
         mAnswer4 = findViewById(R.id.edAnswer4);
         mCheck = findViewById(R.id.btnCheck);
 
+        if (savedInstanceState == null) {
+            generateQuestion();
+        } else {
+            questions = savedInstanceState.getParcelableArrayList("QUESTIONS_KEY");
+            qNumber = savedInstanceState.getInt("NUMBER_KEY");
+            qScore = savedInstanceState.getInt("SCORE_KEY");
+        }
         updateQuestion();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt("NUMBER_KEY", qNumber);
+        outState.putInt("SCORE_KEY", qScore);
+        outState.putParcelableArrayList("QUESTIONS_KEY", questions);
+        super.onSaveInstanceState(outState);
     }
 
     private void generateQuestion() {
         switch (qLevel) {
             case "PreBasic":
-                questions = new BasicQuestions(qChapter);
+                questions = new BasicQuestions(qChapter).gallery;
                 break;
             case "Basic":
-                questions = new BasicQuestions(qChapter);
+                questions = new BasicQuestions(qChapter).gallery;
                 break;
             case "PreIntermediate":
-                questions = new BasicQuestions(qChapter);
+                questions = new BasicQuestions(qChapter).gallery;
                 break;
             case "Intermediate":
-                questions = new BasicQuestions(qChapter);
+                questions = new BasicQuestions(qChapter).gallery;
                 break;
         }
     }
 
     private void updateQuestion() {
-        if (qNumber < questions.gallery.size()) {
-            currentVocab = questions.gallery.get(qNumber);
+        if (qNumber < questions.size()) {
+            currentVocab = questions.get(qNumber);
             mQuestion.setText(currentVocab.getBahasa());
             mInfo.setVisibility(View.GONE);
 
@@ -82,16 +99,16 @@ public class QuestionActivity extends AppCompatActivity {
                 mAnswer3.setVisibility(View.GONE);
                 mAnswer4.setVisibility(View.GONE);
             }
-            mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.gallery.size()));
+            mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.size()));
         } else {
             mCheck.setVisibility(View.GONE);
         }
     }
 
     public void reset(View view) {
-        generateQuestion();
         qNumber = 0;
         qScore = 0;
+        generateQuestion();
         updateQuestion();
     }
 
@@ -127,7 +144,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
             mInfo.setVisibility(View.VISIBLE);
         }
-        mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.gallery.size()));
+        mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.size()));
     }
 
     public void check(View view) {

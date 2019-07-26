@@ -15,4 +15,5 @@
     <string name="verb_3">Verb 3</string>
     <string name="verb_ing">Verb Ing</string>
     <string name="wrong_answer">Jawaban yang Benar adalah: %1$s</string>
+    <string name="quiz">Kuis</string>
 </resources>
