@@ -19,7 +19,7 @@ public class BasicActivity extends AppCompatActivity {
         setContentView(R.layout.activity_basic);
         ListView lvChapter = findViewById(R.id.lvChapter);
 
-        String[] values = {
+        final String[] values = {
                 "Chapter 1",
                 "Chapter 2",
                 "Chapter 3",
@@ -53,6 +53,7 @@ public class BasicActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), QuestionActivity.class);
                 intent.putExtra("LEVEL", "Basic");
                 intent.putExtra("CHAPTER", position);
+                intent.putExtra("CHAPTER_TEXT", values[position]);
                 startActivity(intent);
             }
         });

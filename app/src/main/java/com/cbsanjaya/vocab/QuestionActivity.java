@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -32,6 +33,14 @@ public class QuestionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         qLevel = intent.getStringExtra("LEVEL");
         qChapter = intent.getIntExtra("CHAPTER", 0);
+        String chapterText = intent.getStringExtra("CHAPTER_TEXT");
+
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setSubtitle(qLevel + " " + chapterText);
+        }
+
         mQuestion = findViewById(R.id.txQuestion);
         mScore = findViewById(R.id.txScore);
         mInfo = findViewById(R.id.txInfo);
@@ -57,6 +66,12 @@ public class QuestionActivity extends AppCompatActivity {
         outState.putInt("SCORE_KEY", qScore);
         outState.putParcelableArrayList("QUESTIONS_KEY", questions);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     private void generateQuestion() {
