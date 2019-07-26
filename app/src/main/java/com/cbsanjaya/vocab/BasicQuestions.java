@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class Questions {
+public class BasicQuestions {
 
     private Vocab[] vocabs = {
             new Vocab(true, "Memiliki", "have;had;had;having"),
@@ -446,11 +446,11 @@ public class Questions {
     public static final int CHAPTER_REVIEW_2 = 18;
     public static final int CHAPTER_REVIEW_3 = 19;
 
-    public Questions() {
+    public BasicQuestions() {
         this(CHAPTER_ALL);
     }
 
-    public Questions(int chapter) {
+    public BasicQuestions(int chapter) {
         switch (chapter) {
             case CHAPTER_ALL:
                 Collections.addAll(this.gallery, this.vocabs);

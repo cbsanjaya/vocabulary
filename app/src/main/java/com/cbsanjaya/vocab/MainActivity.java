@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Questions questions;
+    private BasicQuestions questions;
     private Vocab currentVocab;
     private int qNumber = 0;
     private int qScore = 0;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        questions = new Questions();
+        questions = new BasicQuestions();
         mQuestion = findViewById(R.id.txQuestion);
         mScore = findViewById(R.id.txScore);
         mInfo = findViewById(R.id.txInfo);
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        questions = new Questions();
+        questions = new BasicQuestions();
         qNumber = 0;
         qScore = 0;
         updateQuestion();
