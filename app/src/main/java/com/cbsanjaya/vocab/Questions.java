@@ -1,6 +1,10 @@
 package com.cbsanjaya.vocab;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Questions {
+
     private Vocab vocabs[] = {
             new Vocab(true, "Memiliki", "have;had;had;having"),
             new Vocab(true, "Melakukan", "do;did;done;doing"),
@@ -404,7 +408,12 @@ public class Questions {
             new Vocab(false, "rasa takut", "fear")
     };
 
+    public ArrayList<Vocab> gallery = new ArrayList<>();
+
     public Questions() {
-//        this.vocabs =
+        for (int i = 0; i < this.vocabs.length; i++) {
+            this.gallery.add(this.vocabs[i]);
+        }
+        Collections.shuffle(this.gallery);
     }
 }

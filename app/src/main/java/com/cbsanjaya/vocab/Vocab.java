@@ -11,6 +11,10 @@ public class Vocab {
         this.english = english;
     }
 
+    public boolean isVerb() {
+        return this.verb;
+    }
+
     public String getBahasa() {
         return this.bahasa;
     }
