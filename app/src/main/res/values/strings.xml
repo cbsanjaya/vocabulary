@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Vocabulary</string>
+    <string name="app_name">Vocab</string>
     <string name="check">Check</string>
     <string name="reset">Reset</string>
     <string name="noun">Noun or Adjective</string>
