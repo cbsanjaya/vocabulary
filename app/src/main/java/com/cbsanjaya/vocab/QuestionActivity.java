@@ -49,6 +49,7 @@ public class QuestionActivity extends AppCompatActivity {
         mAnswer3 = findViewById(R.id.edAnswer3);
         mAnswer4 = findViewById(R.id.edAnswer4);
         mCheck = findViewById(R.id.btnCheck);
+        mCheck.setVisibility(View.VISIBLE);
 
         if (savedInstanceState == null) {
             generateQuestion();
@@ -92,37 +93,34 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void updateQuestion() {
-        if (qNumber < questions.size()) {
-            currentVocab = questions.get(qNumber);
-            mQuestion.setText(currentVocab.getBahasa());
-            mInfo.setVisibility(View.GONE);
+        currentVocab = questions.get(qNumber);
+        mQuestion.setText(currentVocab.getBahasa());
+        mInfo.setVisibility(View.GONE);
 
-            mAnswer1.requestFocus();
-            mAnswer1.setText("");
-            mAnswer2.setText("");
-            mAnswer3.setText("");
-            mAnswer4.setText("");
+        mAnswer1.requestFocus();
+        mAnswer1.setText("");
+        mAnswer2.setText("");
+        mAnswer3.setText("");
+        mAnswer4.setText("");
 
-            if (currentVocab.isVerb()) {
-                mAnswer1.setHint(R.string.verb_1);
-                mAnswer2.setVisibility(View.VISIBLE);
-                mAnswer3.setVisibility(View.VISIBLE);
-                mAnswer4.setVisibility(View.VISIBLE);
-            } else {
-                mAnswer1.setHint(R.string.noun);
-                mAnswer2.setVisibility(View.GONE);
-                mAnswer3.setVisibility(View.GONE);
-                mAnswer4.setVisibility(View.GONE);
-            }
-            mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.size()));
+        if (currentVocab.isVerb()) {
+            mAnswer1.setHint(R.string.verb_1);
+            mAnswer2.setVisibility(View.VISIBLE);
+            mAnswer3.setVisibility(View.VISIBLE);
+            mAnswer4.setVisibility(View.VISIBLE);
         } else {
-            mCheck.setVisibility(View.GONE);
+            mAnswer1.setHint(R.string.noun);
+            mAnswer2.setVisibility(View.GONE);
+            mAnswer3.setVisibility(View.GONE);
+            mAnswer4.setVisibility(View.GONE);
         }
+        mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.size()));
     }
 
     public void reset(View view) {
         qNumber = 0;
         qScore = 0;
+        mCheck.setVisibility(View.VISIBLE);
         generateQuestion();
         updateQuestion();
     }
@@ -160,6 +158,9 @@ public class QuestionActivity extends AppCompatActivity {
             mInfo.setVisibility(View.VISIBLE);
         }
         mScore.setText(getResources().getString(R.string.correct_info, (qNumber+1), qScore, questions.size()));
+        if (qNumber+1 == questions.size()) {
+            mCheck.setVisibility(View.GONE);
+        }
     }
 
     public void check(View view) {

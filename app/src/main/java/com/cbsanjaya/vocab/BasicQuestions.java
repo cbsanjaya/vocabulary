@@ -286,7 +286,7 @@ class BasicQuestions extends BaseQuestions{
                 new Vocab(false, "persiapan", "preparation"),
                 new Vocab(false, "Ringan", "light"),
                 new Vocab(false, "pakaian", "clothes"),
-                new Vocab(false, "Keras, tegas", "Strict"),
+                new Vocab(false, "Keras, tegas", "strict"),
                 new Vocab(false, "kegiatan", "activity"),
                 new Vocab(false, "pilih kasih", "partial"),
                 new Vocab(false, "manfaat", "benefit"),

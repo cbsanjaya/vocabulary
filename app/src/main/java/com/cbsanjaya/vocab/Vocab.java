@@ -26,9 +26,9 @@ public class Vocab implements Parcelable {
         String result="";
 
         if (verb) {
-            result = this.english.split(";")[0];
+            result = this.english.split(";")[0].toLowerCase();
         } else {
-            result = this.english;
+            result = this.english.toLowerCase();
         }
 
         return result;
@@ -39,7 +39,7 @@ public class Vocab implements Parcelable {
         String result="";
 
         if (verb) {
-            result = this.english.split(";")[1];
+            result = this.english.split(";")[1].toLowerCase();
         }
 
         return result;
@@ -49,7 +49,7 @@ public class Vocab implements Parcelable {
         String result="";
 
         if (verb) {
-            result = this.english.split(";")[2];
+            result = this.english.split(";")[2].toLowerCase();
         }
 
         return result;
@@ -59,7 +59,7 @@ public class Vocab implements Parcelable {
         String result="";
 
         if (verb) {
-            result = this.english.split(";")[3];
+            result = this.english.split(";")[3].toLowerCase();
         }
 
         return result;
